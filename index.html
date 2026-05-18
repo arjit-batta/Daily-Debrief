@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Debrief</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header__top">
+        <div class="header__brand">
+          <h1 class="header__title">Daily Debrief</h1>
+          <p class="header__subtitle">Evening check-in · honest reflection</p>
+        </div>
+        <button
+          type="button"
+          class="settings-btn"
+          id="settings-btn"
+          aria-label="API key settings"
+          title="API key settings"
+        >
+          <svg class="settings-btn__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="check-in" aria-labelledby="check-in-heading">
+        <h2 id="check-in-heading" class="section-heading">Tonight's check-in</h2>
+        <p class="check-in__date" id="today-date" aria-live="polite"></p>
+
+        <form id="check-in-form" class="check-in__form" novalidate>
+          <div class="field">
+            <label for="planned" class="field__label">What I planned to do today</label>
+            <textarea
+              id="planned"
+              name="planned"
+              class="field__input"
+              rows="3"
+              placeholder="What was on your list this morning?"
+              required
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="actual" class="field__label">What I actually did</label>
+            <textarea
+              id="actual"
+              name="actual"
+              class="field__input"
+              rows="3"
+              placeholder="What happened in reality?"
+              required
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="blockers" class="field__label">What got in the way</label>
+            <textarea
+              id="blockers"
+              name="blockers"
+              class="field__input"
+              rows="3"
+              placeholder="Distractions, surprises, energy — anything that shifted the day"
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary" id="submit-btn">
+              Submit check-in
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="response" id="response-section" hidden aria-labelledby="response-heading">
+        <h2 id="response-heading" class="section-heading">Reflection</h2>
+        <div class="response__card" id="response-card">
+          <p class="response__loading" id="response-loading" hidden>Thinking…</p>
+          <div class="response__content" id="response-content"></div>
+          <p class="response__error" id="response-error" hidden role="alert"></p>
+        </div>
+      </section>
+
+      <section class="history" aria-labelledby="history-heading">
+        <h2 id="history-heading" class="section-heading">Past entries</h2>
+        <p class="history__empty" id="history-empty">No entries yet. Your first check-in will appear here.</p>
+        <ol class="history__list" id="history-list" aria-label="Check-in history"></ol>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Entries are stored locally in your browser.</p>
+    </footer>
+  </div>
+
+  <div class="modal" id="settings-modal" hidden role="dialog" aria-labelledby="modal-title" aria-modal="true">
+    <div class="modal__backdrop" id="modal-backdrop"></div>
+    <div class="modal__panel">
+      <h2 id="modal-title" class="modal__title">API key</h2>
+      <p class="modal__text">
+        Your key stays in this browser only. Get one at
+        <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer">console.anthropic.com</a>.
+      </p>
+      <label for="api-key-input" class="field__label">Anthropic API key</label>
+      <input
+        type="password"
+        id="api-key-input"
+        class="field__input field__input--single"
+        placeholder="sk-ant-…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" id="modal-cancel">Cancel</button>
+        <button type="button" class="btn btn--primary" id="modal-save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
